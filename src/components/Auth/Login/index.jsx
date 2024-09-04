@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles.css";
-const API_URL = "https://congenial-bassoon-q9576gq4xx92454w-5000.app.github.dev/api/auth/login";
-const host = `${process.env.CODESPACE_NAME}-5000.${process.env.GITHUB_USER}.github.dev`;
+// const API_URL = "https://congenial-bassoon-q9576gq4xx92454w-5000.app.github.dev/api/auth/login";
+// Correct way to construct the API URL
+const API_URL = process.env.CODESPACE_NAME
+  ? `https://${process.env.CODESPACE_NAME}-5000.github.dev`
+  : 'http://localhost:5000';  // Fallback to localhost for local dev
+// const host = `${process.env.CODESPACE_NAME}-5000.${process.env.GITHUB_USER}.github.dev`;
+const host = `${process.env.CODESPACE_NAME || 'localhost'}-5000.${process.env.GITHUB_USER || 'localhost'}.github.dev`;
+
 
 
 export default () => {
@@ -19,18 +25,21 @@ export default () => {
   };
   
   const handleSubmit = async (event) => {
-    console.log("Access your app at:" + 'https://${host}')
+    console.log("Access your app at:" + `https://${host}`)
+    console.log("CODESPACE_NAME:", process.env.CODESPACE_NAME);
+    console.log("GITHUB_USER:", process.env.GITHUB_USER);
     event.preventDefault();
 
     try {
       // const res = await axios.post('http://localhost:5000/api/auth/login', {
-      // const res = await axios.post(`${host}/api/auth/login`, {
-        const res = await axios.post(API_URL, {
+      // const res = await axios.post(`https://congenial-bassoon-q9576gq4xx92454w-5000.app.github.dev/api/auth/login`, {
+        const res = await axios.post(`${API_URL}/api/auth/login`, {
         userEmail: loginEmail,
         userPassword: loginPassword,
       });
 
       console.log('Server Response:', res.data);
+
 
       // Store JWT token or other necessary data
       localStorage.setItem('token', res.data.token);
