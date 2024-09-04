@@ -6,24 +6,25 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - ./src:/app/src
-      - ./public:/app/public
+      - ./src:/usr/src/app/src
+      - ./public:/usr/src/app/public
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
     command: ["npm", "start"]
-      
+
   server:
     build:
       context: ./api
       dockerfile: Dockerfile
     volumes:
-      - ./server:/app
+      - ./api:/usr/src/app
     ports:
       - "5000:5000"
     environment:
       - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/my-portfolio
     command: ["npm", "start"]
 
   mongo:
