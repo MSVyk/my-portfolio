@@ -22,7 +22,7 @@
       "eject": "react-scripts eject",
       "dev": "concurrently \"npm start\" \"npm run server\"",
       "server": "npm run dev --prefix api",
-      "build:client": "npm install && npm run build",
+      "build:client": "npm install && react-scripts build",
       "build:server": "cd api && npm install",
       "build": "npm run build:client && npm run build:server",
       "start:prod": "node api/index.js"
@@ -45,4 +45,3 @@
       "nodemon": "^3.1.4"
     }
   }
-  
