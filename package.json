@@ -22,7 +22,7 @@
       "eject": "react-scripts eject",
       "dev": "concurrently \"npm start\" \"npm run server\"",
       "server": "npm run dev --prefix api",
-      "build:client": "cd client && npm install && npm run build",
+      "build:client": "npm install && npm run build",
       "build:server": "cd api && npm install",
       "build": "npm run build:client && npm run build:server",
       "start:prod": "node api/index.js"
