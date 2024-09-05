@@ -2,3 +2,5 @@ node_modules
 api/.env
 .env
 .env .env
+build
+api/node_modules/
